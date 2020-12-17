@@ -1,1 +1,78 @@
-A 개발자
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <math.h>
+
+double dataprocess(double* p, int cnt);
+void print(double* p, int cnt);
+
+int main(void)
+{
+	//배열선언
+	double data[45];
+
+	//처리할 실수의 수
+	int n;
+
+	printf("처리할 실수의 갯수는(40개 이하)? >> ");
+	scanf("%d", &n);
+	printf("\n");
+
+	//배열원소 입력
+	printf("\n처리할 실수 %d개를 입력하세요. >>\n", n);
+	for (int i = 0; i < n; i++)
+	{
+		scanf("%lf", &data[i]);
+	}
+	printf("\n");
+
+	//합, 평균, 분산, 표준편차 출력
+	printf("\n=========== 자료 처리 ============\n");
+	print(data, n); //입력자료 출력
+	printf("\n자료 합: %.2lf\n", dataprocess(data, n));
+	printf("자료 평균: %.2lf\n", data[n]);
+	printf("자료 분산: %.2lf\n", data[n + 1]);
+	printf("자료 표준편차: %.4lf\n", sqrt(data[n + 1]));
+
+	return 0;
+}
+
+
+double dataprocess(double* p, int cnt)
+{
+	double mean = 0;
+	double var = 0;
+	double sum = 0;
+	double sum1 = 0;
+
+	//합
+	for (int i = 0; i < cnt; i++)
+	{
+		sum += p[i];
+	}
+
+	//평균
+	mean = sum / cnt;
+	p[cnt] = mean;
+
+
+	//분산
+	for (int i = 0; i < cnt; i++)
+	{
+		mean = 0;                                                                                                                                                                                                                                                                                                                                                                                 
+		sum1 += (p[i] - mean) * (p[i] - mean);
+	}
+	var = sum1 / cnt;
+	p[cnt + 1] = var;
+
+	return sum;
+}
+
+void print(double* p, int cnt)
+{
+	printf("입력자료: ");
+	for (int i = 0; i < cnt; i++)
+	{
+		printf("%.2lf ", p[i]);
+	}
+}
